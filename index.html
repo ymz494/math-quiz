@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>算数チャレンジ：タイヤ交換</title>
+    <style>
+        :root {
+            --color-a: #FF7F50;
+            --color-b: #1E90FF;
+            --color-c: #32CD32;
+        }
+        body { 
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            text-align: center; 
+            background-color: #fdf6e3; 
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #game-container { 
+            max-width: 600px; 
+            width: 100%;
+            background: white; 
+            border: 4px solid #8b4513;
+            border-radius: 20px; 
+            padding: 15px;
+            box-sizing: border-box;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        #quiz-image { 
+            width: 100%; 
+            border-radius: 10px; 
+            border: 2px solid #eee;
+            margin-bottom: 15px; 
+            display: block;
+        }
+        .options { 
+            display: flex; 
+            justify-content: space-around; 
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        button { 
+            flex: 1;
+            padding: 15px 5px; 
+            font-size: 1.2rem; 
+            cursor: pointer; 
+            border: none; 
+            border-radius: 12px; 
+            color: white; 
+            font-weight: bold;
+            box-shadow: 0 4px #999;
+            transition: all 0.1s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        button:active { 
+            box-shadow: 0 1px #666;
+            transform: translateY(3px); 
+        }
+        .btn-a { background-color: var(--color-a); }
+        .btn-b { background-color: var(--color-b); }
+        .btn-c { background-color: var(--color-c); }
+
+        #message { 
+            min-height: 40px;
+            font-size: 1.4rem; 
+            font-weight: bold; 
+            margin: 10px 0;
+        }
+        #retry-btn { 
+            background-color: #666; 
+            padding: 10px 25px;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <img id="quiz-image" src="question.jpg" alt="算数チャレンジ">
+    
+    <div class="options">
+        <button class="btn-a" onclick="checkAnswer('A')">A店</button>
+        <button class="btn-b" onclick="checkAnswer('B')">B店</button>
+        <button class="btn-c" onclick="checkAnswer('C')">C店</button>
+    </div>
+
+    <div id="message"></div>
+    <button id="retry-btn" style="visibility:hidden;" onclick="resetGame()">もういちど！</button>
+</div>
+
+<script>
+    const quizImg = document.getElementById('quiz-image');
+    const message = document.getElementById('message');
+    const retryBtn = document.getElementById('retry-btn');
+
+    // 图片名称配置，请确保上传到 GitHub 的文件名完全一致
+    const images = {
+        question: "question.jpg", // 初始题目
+        correct: "correct.jpg",   // 正确反馈
+        wrong: "wrong.jpg"       // 错误反馈
+    };
+
+    function checkAnswer(choice) {
+        if (choice === 'C') {
+            quizImg.src = images.correct;
+            message.innerText = "🎊 せいかい！C店が一番安いね！";
+            message.style.color = "#32cd32";
+        } else {
+            quizImg.src = images.wrong;
+            message.innerText = "❌ おしい！もう一回計算してみよう。";
+            message.style.color = "#ff4500";
+        }
+        retryBtn.style.visibility = "visible";
+    }
+
+    function resetGame() {
+        quizImg.src = images.question;
+        message.innerText = "";
+        retryBtn.style.visibility = "hidden";
+    }
+</script>
+
+</body>
+</html>
